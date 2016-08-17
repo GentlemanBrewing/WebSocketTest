@@ -45,21 +45,10 @@ application = tornado.web.Application([
     (r'/', IndexHandler),
 ])
 
-def ButtonMonitor():
-    index = 20
-    WSHandler.send_updates(str(index))
-    while 1:
-        index -= 1
-        if index < 0:
-            index = 20
-        WSHandler.send_updates(str(index))
-        time.sleep(10)
-
 def main():
     http_server = tornado.httpserver.HTTPServer(application)
     http_server.listen(8000)
     tornado.ioloop.IOLoop.instance().start()
 
 if __name__ == "__main__":
-    threading.Thread(target=ButtonMonitor).start()
     main()
